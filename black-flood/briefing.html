@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Briefing completo de la Operación Black Flood. Raiders Latam.">
+<meta property="og:title" content="Operación Black Flood">
+<meta property="og:description" content="Briefing completo de la Operación Black Flood. Raiders Latam.">
+<meta name="theme-color" content="#0a1417">
+<title>Operación Black Flood</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@600;800;900&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: dossier clasificado sobre agua oscura. Hero a sangre, luego secciones en una columna de lectura con bandas de imagen entre fases. Tema único oscuro, deliberado. */
+:root{
+  --abyss:#0a1417;       /* fondo: agua de inundación de noche */
+  --deep:#10211f;        /* superficies */
+  --silt:#1a302c;        /* bordes, separadores */
+  --fog:#c9d3cc;         /* texto principal */
+  --mute:#8a9c95;        /* texto secundario */
+  --brass:#d9a441;       /* acento: latón / marcador láser ámbar */
+  --alert:#d4553f;       /* amenazas, prohibido */
+  --clear:#7fb38a;       /* permitido */
+  --font-display:"Big Shoulders Stencil Display", "Impact", "Arial Narrow", sans-serif;
+  --font-body:"Archivo", "Segoe UI", system-ui, sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, "Consolas", monospace;
+  --step--1:clamp(.78rem,.75rem + .15vw,.86rem);
+  --step-0:clamp(1rem,.96rem + .2vw,1.1rem);
+  --step-1:clamp(1.25rem,1.1rem + .6vw,1.55rem);
+  --step-2:clamp(1.7rem,1.4rem + 1.4vw,2.6rem);
+  --step-3:clamp(2.6rem,1.8rem + 4vw,5.4rem);
+  --step-4:clamp(3.6rem,2rem + 9vw,10rem);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(56px + env(safe-area-inset-top,0px))}
+body{background:var(--abyss);color:var(--fog);font-family:var(--font-body);font-size:var(--step-0);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--abyss)}
+::selection{background:var(--brass);color:var(--abyss)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.wrap{width:100%;max-width:1120px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--font-mono)}
+
+/* ---------- barra de progreso + nav ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--abyss) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--silt)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:52px}
+.nav-mark{font-family:var(--font-display);font-weight:800;font-size:1.15rem;letter-spacing:.06em;white-space:nowrap;color:var(--brass);text-decoration:none}
+.nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none;min-width:0}
+.nav ul::-webkit-scrollbar{display:none}
+.nav li a{display:block;padding:6px 10px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);text-decoration:none;white-space:nowrap;border-radius:2px}
+.nav li a:hover,.nav li a.on{color:var(--fog);background:var(--silt)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--brass);transform-origin:0 50%;transform:scaleX(0)}
+@supports (animation-timeline: scroll()){
+  .progress{animation:grow linear both;animation-timeline:scroll(root)}
+  @keyframes grow{to{transform:scaleX(1)}}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;isolation:isolate;overflow:hidden;border-bottom:1px solid var(--silt)}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:url("img/halo.jpg") center 40%/cover no-repeat;transform:scale(1.08);animation:drift 26s ease-in-out infinite alternate}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(180deg,color-mix(in srgb,var(--abyss) 55%,transparent) 0%,color-mix(in srgb,var(--abyss) 72%,transparent) 45%,var(--abyss) 100%),
+  repeating-linear-gradient(0deg,transparent 0 3px,rgb(0 0 0 / .18) 3px 4px)}
+@keyframes drift{from{transform:scale(1.08) translate3d(0,0,0)}to{transform:scale(1.16) translate3d(-2%,-1.5%,0)}}
+.hero .wrap{padding-block:clamp(56px,10vw,120px) clamp(40px,6vw,72px);display:grid;gap:28px}
+.classif{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-family:var(--font-mono);font-size:var(--step--1);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.stamp{color:var(--alert);border:2px solid var(--alert);padding:3px 10px;font-weight:600;letter-spacing:.2em;transform:rotate(-2deg);display:inline-block;animation:stamp .5s 1.9s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes stamp{from{transform:rotate(-2deg) scale(1.8);opacity:0}to{transform:rotate(-2deg) scale(1);opacity:1}}
+.eyebrow{font-family:var(--font-mono);font-size:var(--step--1);letter-spacing:.24em;text-transform:uppercase;color:var(--brass);margin:0}
+h1{margin:0;font-family:var(--font-display);font-weight:900;font-size:var(--step-4);line-height:.86;letter-spacing:.01em;text-transform:uppercase}
+h1 .ln{display:block;position:relative;width:max-content;max-width:100%}
+/* barras de censura que se retiran: el momento de "desclasificación" */
+.redact{position:relative;display:inline-block}
+.redact::after{content:"";position:absolute;inset:6% -2% 4%;background:#000;transform-origin:100% 50%;animation:declass .7s cubic-bezier(.7,0,.2,1) both}
+h1 .ln:nth-child(1) .redact::after{animation-delay:.35s}
+h1 .ln:nth-child(2) .redact::after{animation-delay:.75s}
+@keyframes declass{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+h1 .ln:nth-child(2){color:var(--brass)}
+.lede{max-width:58ch;font-size:var(--step-1);line-height:1.45;color:var(--fog);margin:0;text-wrap:pretty;animation:rise .8s 1.2s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:1px;background:var(--silt);border:1px solid var(--silt);animation:rise .8s 1.45s ease-out both}
+.fact{background:color-mix(in srgb,var(--abyss) 82%,transparent);padding:14px 16px;min-width:0}
+.fact dt{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.fact dd{margin:4px 0 0;font-weight:600;line-height:1.3}
+.fact dd small{display:block;font-family:var(--font-mono);font-weight:400;color:var(--brass);font-size:.78rem;margin-top:2px}
+
+/* ---------- secciones ---------- */
+section{padding-block:clamp(56px,8vw,104px);border-bottom:1px solid var(--silt)}
+.sec-head{display:grid;gap:10px;margin-bottom:clamp(28px,4vw,44px)}
+.sec-num{font-family:var(--font-mono);font-size:var(--step--1);letter-spacing:.2em;color:var(--brass);text-transform:uppercase}
+h2{margin:0;font-family:var(--font-display);font-weight:800;font-size:var(--step-3);line-height:.92;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+h3{margin:0;font-family:var(--font-display);font-weight:800;font-size:var(--step-1);letter-spacing:.04em;text-transform:uppercase;line-height:1.1}
+p{margin:0;text-wrap:pretty}
+.prose{display:grid;gap:1.1em;max-width:66ch;color:var(--fog)}
+.prose p.dim{color:var(--mute)}
+
+/* reveal al hacer scroll: solo donde el navegador lo soporta, el estado de reposo es visible */
+@supports (animation-timeline: view()){
+  .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
+  @keyframes rv{from{opacity:.15;transform:translateY(28px)}to{opacity:1;transform:none}}
+}
+
+/* TL;DR */
+.tldr{background:var(--deep);border-block:1px solid var(--silt)}
+.tldr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+.tl{padding:22px 20px;border:1px solid var(--silt);background:var(--abyss);display:grid;gap:8px;align-content:start;min-width:0}
+.tl .k{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass)}
+.tl p{font-size:1.02rem;line-height:1.45}
+.tl.no .k{color:var(--alert)}
+
+/* cronología de operaciones */
+.chain{display:flex;flex-wrap:wrap;gap:0;margin:8px 0 36px;list-style:none;padding:0}
+.chain li{flex:1 1 180px;padding:14px 18px 14px 0;border-top:2px solid var(--silt);position:relative;min-width:0}
+.chain li::before{content:"";position:absolute;top:-7px;left:0;width:12px;height:12px;background:var(--abyss);border:2px solid var(--mute);border-radius:50%}
+.chain li.now{border-top-color:var(--brass)}
+.chain li.now::before{border-color:var(--brass);background:var(--brass);box-shadow:0 0 0 6px color-mix(in srgb,var(--brass) 25%,transparent);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 12px color-mix(in srgb,var(--brass) 0%,transparent)}}
+.chain .op{font-family:var(--font-display);font-weight:800;font-size:1.35rem;letter-spacing:.04em;text-transform:uppercase}
+.chain .st{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.1em;color:var(--mute);text-transform:uppercase}
+.chain li.now .st{color:var(--brass)}
+
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(24px,4vw,56px);align-items:start}
+.callout{border-left:3px solid var(--alert);padding:6px 0 6px 18px;color:var(--fog)}
+.callout b{color:var(--alert);font-weight:600}
+
+/* misión */
+.mission{font-family:var(--font-body);font-size:var(--step-2);line-height:1.18;font-weight:600;letter-spacing:-.01em;max-width:30ch;text-wrap:balance}
+.mission em{font-style:normal;color:var(--brass)}
+
+/* objetivos */
+.primary{border:1px solid var(--brass);background:color-mix(in srgb,var(--brass) 8%,var(--abyss));padding:clamp(20px,3vw,32px);display:grid;gap:10px;margin-bottom:28px}
+.primary .k{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass)}
+.primary p{font-size:var(--step-1);line-height:1.4;font-weight:500;max-width:60ch}
+.objs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.obj{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;padding:18px;border:1px solid var(--silt);background:var(--deep);transition:border-color .2s,transform .2s;min-width:0}
+.obj:hover{border-color:var(--mute);transform:translateY(-2px)}
+.obj .n{grid-row:span 2;font-family:var(--font-display);font-weight:900;font-size:2.4rem;line-height:.9;color:var(--silt);-webkit-text-stroke:1px var(--mute);min-width:1.4ch}
+.obj h3{font-size:1.15rem}
+.obj p{color:var(--mute);font-size:.95rem;line-height:1.5}
+.obj .tag{display:inline-block;margin-top:8px;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--brass);color:var(--brass)}
+
+/* banda de imagen */
+.band{position:relative;min-height:clamp(220px,38vw,440px);background:var(--deep) center/cover no-repeat;border-bottom:1px solid var(--silt);display:flex;align-items:flex-end}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,var(--abyss))}
+.band .wrap{position:relative;z-index:1;padding-block:20px}
+.band figcaption{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fog)}
+@supports (animation-timeline: view()){
+  .band{background-attachment:scroll;animation:pan linear both;animation-timeline:view()}
+  @keyframes pan{from{background-position:center 0%}to{background-position:center 100%}}
+}
+
+/* amenazas */
+.threats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin-top:8px}
+.threat{padding:18px;border:1px solid var(--silt);background:var(--deep);display:grid;gap:10px;align-content:start;min-width:0}
+.lvl{display:flex;gap:4px}
+.lvl i{width:18px;height:6px;background:var(--silt)}
+.lvl[data-l="1"] i:nth-child(-n+1),.lvl[data-l="2"] i:nth-child(-n+2),.lvl[data-l="3"] i:nth-child(-n+3){background:var(--alert)}
+.threat .lab{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.threat.air{border-color:var(--alert)}
+.threat.air .lab{color:var(--alert)}
+.warn-banner{margin-top:32px;padding:22px clamp(16px,3vw,28px);background:var(--alert);color:var(--abyss);font-family:var(--font-display);font-weight:900;font-size:var(--step-2);line-height:1;text-transform:uppercase;letter-spacing:.02em;overflow:hidden;position:relative}
+.warn-banner span{display:inline-block}
+.unknown{margin-top:20px;color:var(--mute);max-width:66ch}
+
+/* fuerzas propias */
+.assets{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.asset{border:1px solid var(--silt);background:var(--deep);display:grid;grid-template-rows:auto 1fr;overflow:hidden;min-width:0}
+.asset .ph{aspect-ratio:16/9;background:var(--silt) center/cover no-repeat;max-width:100%;position:relative}
+.asset .ph.none{display:grid;place-items:center;font-family:var(--font-display);font-weight:900;font-size:3.4rem;color:var(--silt);-webkit-text-stroke:1px var(--mute);background:repeating-linear-gradient(135deg,var(--deep) 0 12px,var(--abyss) 12px 24px)}
+.asset .body{padding:18px;display:grid;gap:8px;align-content:start}
+.asset .role{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
+.asset p{color:var(--mute);font-size:.95rem;line-height:1.5}
+.chip{justify-self:start;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border:1px solid currentColor}
+.chip.ok{color:var(--clear)}
+.chip.maybe{color:var(--brass)}
+
+/* procedimiento tomahawk */
+.strike{margin-top:40px;border:1px solid var(--brass);background:linear-gradient(135deg,color-mix(in srgb,var(--brass) 10%,var(--abyss)),var(--abyss) 60%);padding:clamp(20px,3vw,36px);display:grid;gap:24px}
+.strike-head{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:baseline;justify-content:space-between}
+.strike-head h3{font-size:var(--step-2);color:var(--brass)}
+.strike-head .mono{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px;counter-reset:s}
+.steps li{counter-increment:s;padding:16px;border-top:2px solid var(--brass);background:color-mix(in srgb,var(--abyss) 70%,transparent);display:grid;gap:6px;min-width:0}
+.steps li::before{content:"PASO " counter(s);font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;color:var(--brass)}
+.steps b{font-weight:600}
+.steps span{color:var(--mute);font-size:.93rem;line-height:1.45}
+.laser{height:2px;background:linear-gradient(90deg,transparent,var(--brass),transparent);background-size:200% 100%;animation:sweep 2.8s linear infinite}
+@keyframes sweep{from{background-position:100% 0}to{background-position:-100% 0}}
+
+/* fases */
+.phases{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:0}
+.phases::before{content:"";position:absolute;left:23px;top:8px;bottom:8px;width:2px;background:var(--silt)}
+.phase{position:relative;display:grid;grid-template-columns:48px 1fr;gap:18px;padding-bottom:36px}
+.phase:last-child{padding-bottom:0}
+.phase .dot{width:48px;height:48px;border:2px solid var(--brass);background:var(--abyss);display:grid;place-items:center;font-family:var(--font-display);font-weight:900;font-size:1.5rem;color:var(--brass);position:relative;z-index:1}
+.phase .c{display:grid;gap:8px;padding-top:6px;min-width:0}
+.phase .c h3{font-size:var(--step-1)}
+.phase .c p{color:var(--mute);max-width:62ch}
+.phase .c .note{font-family:var(--font-mono);font-size:.78rem;color:var(--brass);letter-spacing:.04em}
+
+/* ROE */
+.roe{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
+.roe-col{border:1px solid var(--silt);background:var(--deep);padding:22px;display:grid;gap:14px;align-content:start;min-width:0}
+.roe-col h3{display:flex;align-items:center;gap:10px}
+.roe-col.do h3{color:var(--clear)}
+.roe-col.dont h3{color:var(--alert)}
+.roe-col ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.roe-col li{display:grid;grid-template-columns:20px 1fr;gap:10px;line-height:1.45}
+.roe-col li::before{font-family:var(--font-mono);font-weight:600}
+.roe-col.do li::before{content:"✓";color:var(--clear)}
+.roe-col.dont li::before{content:"✕";color:var(--alert)}
+
+/* final */
+.endstate{text-align:left}
+.final{padding-block:clamp(72px,12vw,150px);border-bottom:0;position:relative;overflow:hidden;isolation:isolate}
+.final::before{content:"";position:absolute;inset:0;z-index:-1;background:url("img/plane.jpg") center/cover no-repeat;opacity:.22;filter:grayscale(.4)}
+.final::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--abyss),transparent 30%,transparent 70%,var(--abyss))}
+.sign{font-family:var(--font-display);font-weight:900;font-size:var(--step-4);line-height:.86;text-transform:uppercase;margin-top:40px}
+.sign span{display:block;color:var(--brass)}
+.foot{padding-block:28px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Secciones del briefing">
+  <div class="wrap">
+    <a class="nav-mark" href="#top">BLACK FLOOD</a>
+    <ul>
+      <li><a href="#resumen">Resumen</a></li>
+      <li><a href="#situacion">Situación</a></li>
+      <li><a href="#objetivos">Objetivos</a></li>
+      <li><a href="#enemigo">Enemigo</a></li>
+      <li><a href="#apoyo">Apoyo</a></li>
+      <li><a href="#fases">Fases</a></li>
+      <li><a href="#roe">ROE</a></li>
+    </ul>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg" role="img" aria-label="Operadores saltando desde la rampa de un C-27J sobre la zona inundada de El Guamo"></div>
+  <div class="wrap">
+    <div class="classif"><span class="stamp">Clasificado</span><span>Operación Raiders</span><span>DTG 110800 JUN 26</span></div>
+    <p class="eyebrow">Delta Force · Isla Pera</p>
+    <h1><span class="ln"><span class="redact">Black</span></span><span class="ln"><span class="redact">Flood</span></span></h1>
+    <p class="lede">El líder cayó, el cártel no. Salto HALO sobre El Guamo para desmantelar lo que queda del Cártel de los Llanos.</p>
+    <dl class="facts">
+      <div class="fact"><dt>Teatro</dt><dd>República de Santa Esperanza<small>Isla Pera</small></dd></div>
+      <div class="fact"><dt>Área de operaciones</dt><dd>El Guamo</dd></div>
+      <div class="fact"><dt>Fecha / Hora H</dt><dd>11 de junio de 2026<small>08:00 h</small></dd></div>
+      <div class="fact"><dt>Unidad</dt><dd>Delta Force</dd></div>
+      <div class="fact"><dt>Inserción</dt><dd>C-27J Spartan<small>Salto HALO</small></dd></div>
+      <div class="fact"><dt>Apoyo naval</dt><dd>USS Washington (DDG)</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section class="tldr" id="resumen">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">00 · Si leés una sola cosa</span>
+      <h2>Lo esencial en 30 segundos</h2>
+    </div>
+    <div class="tldr-grid">
+      <div class="tl rv"><span class="k">Qué hacemos</span><p>Asalto, reconocimiento, explotación de inteligencia y destrucción de infraestructura del cártel.</p></div>
+      <div class="tl rv"><span class="k">Cómo entramos</span><p>Salto HALO desde el C-27J. Al tocar tierra: reagruparse, revisar equipo y establecer comunicaciones.</p></div>
+      <div class="tl rv"><span class="k">Qué buscamos</span><p>Laboratorios, depósitos, armamento, documentos y rehenes. Todo científico o secuestrado vuelve a base, y los heridos se tratan.</p></div>
+      <div class="tl no rv"><span class="k">Qué no hacemos</span><p>No atacar la represa ni infraestructura civil. Tomahawk solo por orden del líder de equipo, con autorización y sin civiles a la vista.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="situacion">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">I–II · Situación</span>
+      <h2>Vargas cayó. La organización sigue en pie.</h2>
+    </div>
+    <ol class="chain" aria-label="Operaciones de la campaña">
+      <li class="rv"><div class="st">Completada</div><div class="op">Black Signal</div></li>
+      <li class="rv"><div class="st">Completada · Vargas capturado</div><div class="op">Broken Crown</div></li>
+      <li class="now rv"><div class="st">En curso · Misión final</div><div class="op">Black Flood</div></li>
+    </ol>
+    <div class="two">
+      <div class="prose rv">
+        <p>Tras BLACK SIGNAL y BROKEN CROWN, las fuerzas estadounidenses desarticularon parte del Cártel de los Llanos y capturaron a su máximo dirigente, Mateo Vargas, alias <b>«El Ingeniero»</b>. Su captura no garantiza la desaparición de la organización ni la rendición de sus integrantes.</p>
+        <p>La inteligencia de las operaciones anteriores señala a <b>El Guamo</b> como zona estratégica para el cártel. Su extensión rural, la vegetación y la dispersión de las instalaciones dificultan identificar sus posiciones y evaluar su capacidad operativa.</p>
+      </div>
+      <div class="prose rv">
+        <p>Podrían existir todavía grupos armados, centros logísticos e instalaciones de producción y distribución de narcóticos. La participación de elementos corruptos dentro de las instituciones de Santa Esperanza sigue bajo investigación.</p>
+        <p class="callout"><b>Atención:</b> el cártel ya demostró que puede organizar una defensa armada. Se desconoce la disposición de sus efectivos, sus refuerzos y la ubicación de armas pesadas y antiaéreos. No asuman que la captura de Vargas eliminó las amenazas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mision">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">III · Misión</span>
+    </div>
+    <p class="mission rv">Localizar y desmantelar las instalaciones del cártel en El Guamo, <em>neutralizar su capacidad militar y logística</em>, recuperar pruebas y determinar si persisten amenazas contra la infraestructura de Isla Pera.</p>
+    <div class="prose" style="margin-top:28px">
+      <p class="dim rv">La unidad actuará con autonomía en la fase inicial, construirá una imagen precisa de la situación sobre el terreno y adaptará sus acciones a medida que obtenga información nueva.</p>
+    </div>
+  </div>
+</section>
+
+<figure class="band" style="background-image:url('img/halo.jpg')" aria-label="Salto HALO sobre El Guamo">
+  <div class="wrap"><figcaption>Fase 1 · Inserción HALO sobre El Guamo</figcaption></div>
+</figure>
+
+<section id="objetivos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">IV · Objetivos</span>
+      <h2>Qué tiene que pasar</h2>
+    </div>
+    <div class="primary rv">
+      <span class="k">Objetivo principal</span>
+      <p>Desarticular la estructura operativa restante del Cártel de los Llanos en El Guamo, para que no pueda seguir usando la zona como centro de producción, abastecimiento y resistencia armada.</p>
+    </div>
+    <ol class="objs">
+      <li class="obj rv"><span class="n">1</span><h3>Reconocer y asegurar</h3><p>Identificar posiciones enemigas, accesos e instalaciones de interés.</p></li>
+      <li class="obj rv"><span class="n">2</span><h3>Destruir la infraestructura narco</h3><p>Neutralizar laboratorios, depósitos e instalaciones ilegales confirmadas, sin daños innecesarios a la población ni a bienes civiles.<br><span class="tag">Tomahawk disponible · ver Apoyo</span></p></li>
+      <li class="obj rv"><span class="n">3</span><h3>Desmantelar su capacidad militar</h3><p>Reducir la resistencia organizada y asegurar o destruir el armamento que no pueda aprovecharse.</p></li>
+      <li class="obj rv"><span class="n">4</span><h3>Recuperar inteligencia</h3><p>Documentos, registros, comunicaciones y evidencia sobre la cadena de mando, las redes logísticas y los colaboradores.</p></li>
+      <li class="obj rv"><span class="n">5</span><h3>Investigar amenazas estratégicas</h3><p>Buscar indicios de nuevas acciones contra infraestructura crítica de la isla cercana a El Guamo.</p></li>
+      <li class="obj rv"><span class="n">6</span><h3>Completar la extracción</h3><p>Retirar al personal y la inteligencia recuperada al cumplir los objetivos o cuando la situación táctica lo exija.</p></li>
+      <li class="obj rv"><span class="n">7</span><h3>Evacuar rehenes</h3><p>Todo científico o persona secuestrada en instalaciones del cártel se evacúa a base. Cualquier herido debe ser tratado.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="enemigo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">V · Fuerzas enemigas</span>
+      <h2>Cártel de los Llanos</h2>
+    </div>
+    <div class="prose rv"><p>Se espera personal armado organizado en grupos defensivos y patrullas móviles.</p></div>
+    <div class="threats">
+      <div class="threat rv"><span class="lab">Infantería</span><div class="lvl" data-l="2" aria-label="Amenaza media"><i></i><i></i><i></i></div><h3>Fusileros veteranos</h3><p class="dim">Con experiencia en enfrentamientos anteriores.</p></div>
+      <div class="threat rv"><span class="lab">Móvil</span><div class="lvl" data-l="2" aria-label="Amenaza media"><i></i><i></i><i></i></div><h3>Vehículos armados</h3><p class="dim">Patrullas y transporte.</p></div>
+      <div class="threat rv"><span class="lab">Posiciones</span><div class="lvl" data-l="2" aria-label="Amenaza media"><i></i><i></i><i></i></div><h3>Ametralladoras pesadas</h3><p class="dim">Posiciones defensivas improvisadas.</p></div>
+      <div class="threat air rv"><span class="lab">Antiaérea · prioridad</span><div class="lvl" data-l="3" aria-label="Amenaza alta"><i></i><i></i><i></i></div><h3>MANPADS y ZU</h3><p class="dim">Posibles. Afectan la ruta del C-27J y cualquier helicóptero.</p></div>
+      <div class="threat rv"><span class="lab">Logística</span><div class="lvl" data-l="1" aria-label="Amenaza baja"><i></i><i></i><i></i></div><h3>Depósitos de armas</h3><p class="dim">Reservas de armamento y abastecimiento.</p></div>
+    </div>
+    <p class="unknown rv">Número de efectivos, posiciones y estado de las instalaciones: <b>sin confirmar</b>. No se descarta la presencia de colaboradores externos o de elementos vinculados a las redes de corrupción investigadas.</p>
+    <div class="warn-banner rv"><span>El cártel buscará cualquier medio para una victoria.</span></div>
+  </div>
+</section>
+
+<section id="apoyo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">VI · Fuerzas propias y apoyo</span>
+      <h2>Con qué contamos</h2>
+    </div>
+    <div class="assets">
+      <article class="asset rv">
+        <div class="ph none" aria-hidden="true">DELTA</div>
+        <div class="body"><span class="role">Fuerza principal</span><h3>Delta Force</h3><p>Inserción, reconocimiento, asalto terrestre, recuperación de inteligencia y cumplimiento de los objetivos.</p><span class="chip ok">Desplegada</span></div>
+      </article>
+      <article class="asset rv">
+        <div class="ph" style="background-image:url('img/plane.jpg')" role="img" aria-label="C-27J Spartan en vuelo"></div>
+        <div class="body"><span class="role">Inserción</span><h3>C-27J Spartan</h3><p>Lanzamiento HALO en la zona marcada en el mapa. La ruta y el perfil de vuelo consideran posibles defensas antiaéreas.</p><span class="chip ok">Asignado</span></div>
+      </article>
+      <article class="asset rv">
+        <div class="ph" style="background-image:url('img/ship.jpg')" role="img" aria-label="USS Washington lanzando un misil"></div>
+        <div class="body"><span class="role">Apoyo naval</span><h3>USS Washington (DDG)</h3><p>Vigilancia, comunicaciones y ataque con misiles de crucero Tomahawk contra objetivos militares o logísticos identificados, verificados y autorizados.</p><span class="chip ok">En posición</span></div>
+      </article>
+      <article class="asset rv">
+        <div class="ph none" aria-hidden="true">MH-47 / HH-60</div>
+        <div class="body"><span class="role">Apoyo aéreo adicional</span><h3>Helicópteros</h3><p>Disponibilidad a evaluar según los medios restantes y la seguridad. Las pérdidas de operaciones anteriores obligan a evitar exponer las aeronaves.</p><span class="chip maybe">A evaluar</span></div>
+      </article>
+    </div>
+
+    <div class="strike rv" id="tomahawk">
+      <div class="strike-head">
+        <h3>Procedimiento Tomahawk</h3>
+        <span class="mono">Marcado láser · USS Washington</span>
+      </div>
+      <div class="laser" aria-hidden="true"></div>
+      <ol class="steps">
+        <li><b>Orden del líder de equipo</b><span>Solo el líder de equipo puede pedir el ataque, de forma explícita.</span></li>
+        <li><b>Objetivo confirmado</b><span>Instalación militar o logística identificada y verificada sobre el terreno.</span></li>
+        <li><b>Sin civiles a la vista</b><span>Se corrobora que el ataque no provoque bajas civiles ni dañe infraestructura no militar.</span></li>
+        <li><b>Autorización del mando</b><span>Sin autorización no hay lanzamiento.</span></li>
+        <li><b>Marcado láser</b><span>Se ilumina el objetivo hasta el impacto.</span></li>
+      </ol>
+      <p class="dim" style="color:var(--mute)">El apoyo naval no reemplaza asegurar la zona con fuerzas terrestres.</p>
+    </div>
+  </div>
+</section>
+
+<section id="fases">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">VII · Desarrollo</span>
+      <h2>La operación, fase por fase</h2>
+    </div>
+    <ol class="phases">
+      <li class="phase rv"><span class="dot">1</span><div class="c"><h3>Inserción</h3><p>Salto HALO desde el C-27J en la zona designada. Tras aterrizar, los equipos se reorganizan, comprueban su material y establecen comunicaciones.</p></div></li>
+      <li class="phase rv"><span class="dot">2</span><div class="c"><h3>Reconocimiento y avance</h3><p>Identificar accesos, posiciones enemigas e instalaciones de interés. Prioridad: obtener información antes de meterse en un combate prolongado.</p></div></li>
+      <li class="phase rv"><span class="dot">3</span><div class="c"><h3>Asalto y desmantelamiento</h3><p>Acción contra las instalaciones y la resistencia armada del cártel. El apoyo naval solo contra objetivos confirmados y autorizados.</p><span class="note">El Tomahawk no reemplaza asegurar la zona por tierra.</span></div></li>
+      <li class="phase rv"><span class="dot">4</span><div class="c"><h3>Explotación de inteligencia</h3><p>Registrar las instalaciones aseguradas y recopilar documentos, comunicaciones y evidencias. Contrastar todo con lo hallado en el terreno.</p></div></li>
+      <li class="phase rv"><span class="dot">5</span><div class="c"><h3>Evaluación y extracción</h3><p>Verificar los objetivos, evaluar amenazas contra infraestructura crítica y retirarse por el medio disponible según la situación táctica.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="roe">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">VIII · Reglas de enfrentamiento</span>
+      <h2>ROE</h2>
+    </div>
+    <div class="roe">
+      <div class="roe-col do rv">
+        <h3>Hacer</h3>
+        <ul>
+          <li>Identificar el objetivo antes de abrir fuego, siempre que las circunstancias lo permitan.</li>
+          <li>Recuperar y preservar las pruebas de interés para la investigación.</li>
+          <li>Informar al mando de cualquier hallazgo que cambie la evaluación de la amenaza.</li>
+          <li>Usar el apoyo naval solo contra objetivos confirmados y autorizados.</li>
+        </ul>
+      </div>
+      <div class="roe-col dont rv">
+        <h3>No hacer</h3>
+        <ul>
+          <li>Causar daños innecesarios a viviendas e infraestructura civil.</li>
+          <li>Atacar la represa u otra infraestructura crítica sin autorización expresa y justificación operativa.</li>
+          <li>Pedir un Tomahawk sin orden del líder de equipo ni autorización del mando.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="final">
+  <div class="wrap endstate">
+    <div class="sec-head">
+      <span class="sec-num">IX · Estado final deseado</span>
+      <h2>Que no puedan reconstruirse</h2>
+    </div>
+    <div class="prose rv">
+      <p>La operación es un éxito cuando Delta Force haya desmantelado las principales capacidades del Cártel de los Llanos en El Guamo, recuperado evidencias sobre su estructura y sus posibles vínculos institucionales, y evaluado las amenazas pendientes contra Isla Pera.</p>
+      <p class="dim">La captura de Mateo Vargas fue un avance importante, pero el objetivo no es eliminar a un dirigente: es impedir que la organización reconstruya su estructura y siga operando.</p>
+    </div>
+    <p class="sign rv">Buena caza,<span>Deltas.</span></p>
+  </div>
+</section>
+
+<footer class="wrap foot">
+  <span>Operación Raiders · Black Flood · Misión final</span>
+  <a href="./" style="color:var(--brass)">Ver la historia →</a><a href="../" style="color:var(--mute)">Todas las operaciones</a>
+</footer>
+
+<script>
+(() => {
+  const links = [...document.querySelectorAll('.nav li a')];
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('on'));
+        const a = map.get(e.target.id);
+        if (a) { a.classList.add('on'); const ul = a.closest('ul'); ul.scrollTo({left: a.parentElement.offsetLeft - 16, behavior: 'smooth'}); }
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  map.forEach((_, id) => { const s = document.getElementById(id); if (s) io.observe(s); });
+})();
+</script>
+
+</body>
+</html>

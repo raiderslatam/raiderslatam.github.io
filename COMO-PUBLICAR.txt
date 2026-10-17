@@ -1,0 +1,42 @@
+CÓMO PUBLICAR EL SITIO DE RAIDERS LATAM EN GITHUB PAGES (gratis)
+=================================================================
+
+Resultado: un sitio en https://raiderslatam.github.io
+  - Inicio con todas las operaciones:   raiderslatam.github.io
+  - Historia de Black Flood:            raiderslatam.github.io/black-flood
+  - Briefing completo:                  raiderslatam.github.io/black-flood/briefing.html
+
+("raiderslatam" es un ejemplo: el link usa el nombre que elijas en el paso 2.)
+
+
+1) CREAR CUENTA
+   Entrá a https://github.com y creá una cuenta gratis (si no tenés).
+
+2) CREAR UNA ORGANIZACIÓN PARA LA COMUNIDAD (recomendado)
+   - Arriba a la derecha: tu foto > "Your organizations" > "New organization" > plan "Free".
+   - Nombre: por ejemplo "raiderslatam". Ese nombre va a ser el link del sitio.
+   - Si preferís no crear organización, usá tu propio usuario: el link va a ser tuusuario.github.io
+
+3) CREAR EL REPOSITORIO
+   - Dentro de la organización: "New repository".
+   - Nombre EXACTO:  raiderslatam.github.io   (el nombre de la organización + .github.io)
+   - Marcalo como "Public" y tocá "Create repository".
+
+4) SUBIR LOS ARCHIVOS
+   - En el repositorio nuevo, tocá el link "uploading an existing file".
+   - Abrí la carpeta "raiders-latam-sitio" en tu PC, seleccioná TODO lo que hay ADENTRO
+     (index.html y la carpeta black-flood) y arrastralo a la página.
+     Importante: subí el contenido, no la carpeta "raiders-latam-sitio" entera.
+   - Abajo, tocá "Commit changes".
+
+5) ACTIVAR GITHUB PAGES
+   - En el repositorio: Settings > Pages.
+   - En "Build and deployment" > Source: "Deploy from a branch".
+   - Branch: "main" y carpeta "/ (root)". Tocá "Save".
+   - Esperá 1 o 2 minutos y entrá a https://raiderslatam.github.io
+
+6) ACTUALIZAR O SUMAR OPERACIONES
+   - Para una operación nueva se agrega una carpeta (por ejemplo "agua-negra") y una tarjeta en index.html.
+   - Se sube igual que en el paso 4. Los cambios aparecen en 1 o 2 minutos, en el mismo link.
+
+NOTA: el sitio es público. Cualquiera que tenga el link puede verlo. No subas nada que no quieras que se vea.
